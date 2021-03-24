@@ -1,11 +1,8 @@
 package com.zipcodewilmington.phonebook;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 //import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
 
 /**
  * Created by leon on 1/23/18.
@@ -13,31 +10,44 @@ import java.util.Map;
  */
 public class PhoneBook {
 
-    private final Map<String, List<String>> phonebook;
+    private Map<String, List<String>> phonebook;
+    private List<String> teleNumbers = new ArrayList<>();
 
-    public PhoneBook(Map<String, List<String>> map) {
-        this.phonebook = null;
+    public PhoneBook(Map<String, List<String>> phonebookMap) {
+
+        this.phonebook = phonebookMap;
     }
 
     public PhoneBook() {
-        this(null);
+        this(new HashMap<>());
+
     }
 
     public void add(String name, String phoneNumber) {
+        teleNumbers.add(phoneNumber);
+        phonebook.put(name, teleNumbers);
     }
 
     public void addAll(String name, String... phoneNumbers) {
+        teleNumbers.addAll(Arrays.asList(phoneNumbers));
+        assert phonebook != null;
+        phonebook.put(name, teleNumbers);
     }
 
     public void remove(String name) {
+        phonebook.remove(name);
     }
 
     public Boolean hasEntry(String name) {
-        return null;
+        return phonebook.containsKey(name);
+    }
+    public Boolean hasEntry(String name, String phoneNumber) {
+        return (phonebook.containsKey(name) || phonebook.containsValue(phoneNumber));
     }
 
     public List<String> lookup(String name) {
-        return null;
+
+        return phonebook.get(name);
     }
 
     public String reverseLookup(String phoneNumber)  {
@@ -45,10 +55,10 @@ public class PhoneBook {
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        return phonebook.;
     }
 
     public Map<String, List<String>> getMap() {
-        return null;
+        return phonebook;
     }
 }
